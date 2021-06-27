@@ -1,6 +1,6 @@
 package com.emp;
 
-public class EmpWageComputation {
+    public class EmpWageComputation implements EmpWageInterface {
     //constant variables
     public static final int isFullTime = 1;
     public static final int isPartTime = 2;
@@ -12,40 +12,48 @@ public class EmpWageComputation {
 
     public EmpWageComputation() {
         //initializing the array
-        comEmpWageArray = new ComEmpWage[5];
+        comEmpWageArray = new ComEmpWage[10];
 
     }
+
     // main method
     public static void main(String[] args) {
         System.out.println("Welcome to employee  wage computation problem ");
         //creating an object
         EmpWageComputation empWage = new EmpWageComputation();
-        empWage.addComEmpWage("dMart", 20, 3, 10);
-        empWage.addComEmpWage("jio", 25, 2, 15);
+        empWage.addComEmpWage("dMart", 20, 28, 10);
+        empWage.addComEmpWage("jio", 25, 25, 15);
         empWage.calculatingEmpWages();
     }
 
-    private void addComEmpWage(String company, int wagePerHr, int totalWorkingDays, int maxHrsPerMonth) {
+    @Override
+    public void addComEmpWage(String companyName, int wagePerHr, int totalWorkingDays, int maxHrsPerMonth) {
 
-        comEmpWageArray[numOfCompany] = new ComEmpWage(company, wagePerHr, totalWorkingDays, maxHrsPerMonth);
+        comEmpWageArray[numOfCompany] = new ComEmpWage(companyName, wagePerHr, totalWorkingDays, maxHrsPerMonth);
         numOfCompany++;
     }
-    //creating method
-    private void calculatingEmpWages() {
+
+
+
+       @Override
+        public void calculatingEmpWages() {
         for (int i = 0; i < numOfCompany; i++) {
             comEmpWageArray[i].setTotalEmpWage(this.calculatingEmpWages(comEmpWageArray[i]));
+            System.out.println(comEmpWageArray[i]);
         }
     }
 
     // calculating emp wages
-    public int calculatingEmpWages(ComEmpWage comEmpWage) {
+    private int calculatingEmpWages(ComEmpWage comEmpWage) {
         //local variables
         int workingHrs = 0;
-        int numberOfWorkingDays = 0;
+        int monthlyTotalWage = 0;
         int totalEmpHrs = 0;
+        int days = 0;
+        int dailyWageArray[] = new int[comEmpWage.totalWorkingDays];
         ///computation
-        while (totalEmpHrs <= comEmpWage.maxHrsPerMonth && numberOfWorkingDays < comEmpWage.totalWorkingDays) {
-            numberOfWorkingDays++;
+        while (days <= comEmpWage.totalWorkingDays && totalEmpHrs < comEmpWage.maxHrsPerMonth) {
+
             int empCheck = (int) (Math.floor(Math.random() * 10)) % 3;
             switch (empCheck) {
                 case isFullTime:
@@ -58,11 +66,22 @@ public class EmpWageComputation {
                     workingHrs = 0;
             }
             totalEmpHrs += workingHrs;
-            System.out.println("Day#" + numberOfWorkingDays + " he worked for " + workingHrs + " hours ");
+            dailyWageArray[days] = workingHrs * comEmpWage.wagePerHr;
+            days++;
         }
-        return totalEmpHrs * comEmpWage.wagePerHr;
+        for (int j = 0; j < comEmpWage.totalWorkingDays; j++) {
+            int day = j + 1;
+            monthlyTotalWage = monthlyTotalWage + dailyWageArray[j];
+        }
+
+        return monthlyTotalWage;
     }
 }
+
+
+
+
+
 
 
 
