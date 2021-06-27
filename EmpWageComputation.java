@@ -74,7 +74,8 @@ import java.util.List;
         }
         for (int j = 0; j < comEmpWage.totalWorkingDays; j++) {
             int day = j + 1;
-            monthlyTotalWage = monthlyTotalWage + dailyWageArray[j];
+            System.out.println("Day " + day + " employee wage is " + dailyWageArray[j]);
+            monthlyTotalWage=monthlyTotalWage + dailyWageArray[j];
         }
 
         return monthlyTotalWage;
