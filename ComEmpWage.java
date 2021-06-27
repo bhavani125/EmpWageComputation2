@@ -20,6 +20,9 @@ public class ComEmpWage {
     public void setTotalEmpWage(int totalEmpWage) {
         this.totalEmpWage = totalEmpWage;
     }
+    public String getCompanyName(){
+        return companyName;
+    }
     @Override
     public String toString() {
 

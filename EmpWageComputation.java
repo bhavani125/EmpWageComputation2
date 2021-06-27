@@ -2,6 +2,8 @@ package com.emp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
     public class EmpWageComputation implements EmpWageInterface {
     //constant variables
@@ -10,13 +12,14 @@ import java.util.List;
 
     private int numOfCompany = 0;
 
-    //here we are defining the array
+    //here we are defining the List
     private  List<ComEmpWage> comEmpWageArray;
+    private  Map<String,ComEmpWage>map;
 
     public EmpWageComputation() {
-        //initializing the array
+        //initializing the arrayList
         comEmpWageArray = new ArrayList<ComEmpWage>();
-
+        map=new HashMap<String,ComEmpWage>();
     }
 
     // main method
@@ -27,6 +30,8 @@ import java.util.List;
         empWage.addComEmpWage("dMart", 20, 28, 10);
         empWage.addComEmpWage("jio", 25, 25, 15);
         empWage.calculatingEmpWages();
+        //using console here
+        System.out.println("Total employee wage for dMart " + empWage.getTotalWage("dMart"));
     }
 
     @Override
@@ -43,6 +48,7 @@ import java.util.List;
           ComEmpWage comEmpWage= comEmpWageArray.get(i);
           comEmpWage.setTotalEmpWage(calculatingEmpWages(comEmpWage));
           System.out.println(comEmpWage);
+          System.out.println(this.map);
         }
     }
 
@@ -77,8 +83,12 @@ import java.util.List;
             System.out.println("Day " + day + " employee wage is " + dailyWageArray[j]);
             monthlyTotalWage=monthlyTotalWage + dailyWageArray[j];
         }
+        map.put(comEmpWage.getCompanyName(), comEmpWage);
 
         return monthlyTotalWage;
+    }
+    private int getTotalWage(String companyName) {
+        return map.get(companyName).totalEmpWage;
     }
 }
 
