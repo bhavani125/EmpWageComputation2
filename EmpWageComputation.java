@@ -1,5 +1,8 @@
 package com.emp;
 
+import java.util.ArrayList;
+import java.util.List;
+
     public class EmpWageComputation implements EmpWageInterface {
     //constant variables
     public static final int isFullTime = 1;
@@ -8,18 +11,18 @@ package com.emp;
     private int numOfCompany = 0;
 
     //here we are defining the array
-    private ComEmpWage[] comEmpWageArray;
+    private  List<ComEmpWage> comEmpWageArray;
 
     public EmpWageComputation() {
         //initializing the array
-        comEmpWageArray = new ComEmpWage[10];
+        comEmpWageArray = new ArrayList<ComEmpWage>();
 
     }
 
     // main method
     public static void main(String[] args) {
         System.out.println("Welcome to employee  wage computation problem ");
-        //creating an object
+        //creating object
         EmpWageComputation empWage = new EmpWageComputation();
         empWage.addComEmpWage("dMart", 20, 28, 10);
         empWage.addComEmpWage("jio", 25, 25, 15);
@@ -28,18 +31,18 @@ package com.emp;
 
     @Override
     public void addComEmpWage(String companyName, int wagePerHr, int totalWorkingDays, int maxHrsPerMonth) {
-
-        comEmpWageArray[numOfCompany] = new ComEmpWage(companyName, wagePerHr, totalWorkingDays, maxHrsPerMonth);
-        numOfCompany++;
+       ComEmpWage comEmpWage =new ComEmpWage(companyName,wagePerHr,totalWorkingDays,maxHrsPerMonth);
+       comEmpWageArray.add(comEmpWage);
     }
 
 
 
        @Override
         public void calculatingEmpWages() {
-        for (int i = 0; i < numOfCompany; i++) {
-            comEmpWageArray[i].setTotalEmpWage(this.calculatingEmpWages(comEmpWageArray[i]));
-            System.out.println(comEmpWageArray[i]);
+        for (int i = 0; i < comEmpWageArray.size(); i++) {
+          ComEmpWage comEmpWage= comEmpWageArray.get(i);
+          comEmpWage.setTotalEmpWage(calculatingEmpWages(comEmpWage));
+          System.out.println(comEmpWage);
         }
     }
 

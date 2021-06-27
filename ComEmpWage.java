@@ -23,6 +23,6 @@ public class ComEmpWage {
     @Override
     public String toString() {
 
-        return "Total wage of employee of a company" + companyName + "is:"+ totalEmpWage;
+        return "Total Monthly wage of an employee for a company"  + companyName  +  "is" + totalEmpWage;
     }
 }
